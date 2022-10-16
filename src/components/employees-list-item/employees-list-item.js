@@ -10,9 +10,15 @@ class EmployeesListItem extends Component {
         }
     }
     render() {
-        const { name, salary } = this.props
+        const { name, salary, increase } = this.props
+
+        let className = "list-group-item d-flex justify-content-between"
+        if (increase) {
+            className += " increase"
+        }
         return (
-            <li className="list-group-item d-flex justify-content-between">
+
+            <li className={className}>
                 <span className="list-group-item-label">{name}</span>
                 <input type="text" className="list-group-item-input" defaultValue={salary + ' uan'} />
                 <div className='d-flex justify-content-center align-items-center'>
