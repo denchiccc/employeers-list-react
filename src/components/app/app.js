@@ -88,7 +88,8 @@ class App extends Component {
     this.setState({ term })
   }
 
-  onFilterEmployees = (items, filter) => {
+
+  filterEmployees = (items, filter) => {
     switch (filter) {
       case 'rise':
         return items.filter(elem => elem.rise);
@@ -98,12 +99,15 @@ class App extends Component {
         return items
     }
   }
+  onFilterSelect = (filter) => {
+    this.setState({ filter })
+  }
 
   render() {
     const { data, term, filter } = this.state /* сылка поиск 2 */
     const onTotalIncrease = data.filter(elem => elem.increase).length
     const onTotalEmployees = data.length
-    const visiblData = this.onFilterEmployees(this.onSearchPanel(data, term), filter) /* сылка 5 */
+    const visiblData = this.filterEmployees(this.onSearchPanel(data, term), filter) /* сылка 5 */
     return (
       <div className="app">
         <AppInfo
@@ -113,7 +117,8 @@ class App extends Component {
 
         <div className="search-panel">
           <SearchPanel onUpdateSearch={this.onUpdateSearch}/* ссылка поиска 6 */ />
-          <AppFilter onAllEmployees={this.onAllEmployees} />
+          <AppFilter filter={filter}
+            onFilterSelect={this.onFilterSelect} />
         </div>
 
         <EmployeesList
