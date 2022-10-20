@@ -15,27 +15,37 @@ class EmployeesAddForm extends Component {
         })
     };
 
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.onCreate(this.state.name, this.state.salary);
+        this.setState({
+            name: '',
+            salary: ''
+        })
+    }
 
 
     render() {
         const { name, salary } = this.state
+
         return (
             <div className="app-add-form">
                 <h3>Добавьте нового сотрудника</h3>
                 <form
-                    className="add-form d-flex">
+                    className="add-form d-flex"
+                    onSubmit={this.onSubmit}>
                     <input type="text"
                         className="form-control new-post-label"
                         name="name" /* link 2 */
                         placeholder="Как его зовут?"
                         onChange={this.onValueChange}
-                        value={name} />
+                        value={name} /* link 4 */ />
                     <input type="number"
                         className="form-control new-post-label"
                         name="salary" /* link 2 */
                         placeholder="З/П в $?"
                         onChange={this.onValueChange}
-                        value={salary} />
+                        value={salary} /* link 4 */ />
 
                     <button type="submit"
                         className="btn btn-outline-light">Добавить</button>
@@ -55,7 +65,7 @@ export default EmployeesAddForm;
 // ! link 3 теперь мы можем достучатся до каждого импута с атрибутом name( [e.target.name]) и 
 // ! записать туда значение value(e.target.value)
 
-// ? если мы хотим чтобы реакт компонент ретдарил форму и контролировал ее поведение в
+// ? link 4 если мы хотим чтобы реакт компонент ретдарил форму и контролировал ее поведение в
 // ? ответ на пользовательский ввод то мы должны добавлять атрибут Value и в него помещать значение 
 // ? state (name , salary) теперь сам импут контролируется реактом и он называется 
 // ? упровляемым элементом
